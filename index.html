@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script type="text/javascript" src="assets/js/lib/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="/Todo List/assets/js/todos.js"></script>
+    <link rel="stylesheet" href="/Todo List/assets/css/styles.css" />
+    <title>Todo List</title>
+</head>
+
+<body>
+    <div id="container">
+        <h1>To-Do List</h1>
+        <input type="text" placeholder="Add New Todo" />
+        <ul>
+            <li><span>X</span> Go running</li>
+            <li><span>X</span> Do laundry</li>
+            <li><span>X</span> Feed dogs</li>
+        </ul>
+    </div>
+
+    <script>
+        //Check off todo by clicking. Create a css class to toggle
+        $('ul').on('click', 'li', function() {
+            $(this).toggleClass('completed');
+        });
+
+        // delete button - remove and fade
+        $('ul').on('click', 'span', function(e) {
+            //e prefent default
+            e.stopPropagation();
+            $(this)
+                .parent()
+                .fadeOut(500, function() {
+                    $(this).remove();
+                });
+        });
+
+        // Add listner for new todos
+        $("input[type='text']").keypress(function(e) {
+            if (e.which === 13) {
+                //extract value from input
+                let todoText = $(this).val();
+                //clear input
+                $(this).val('');
+                //create a new li and add to ul
+                $('ul').append(`<li><span>X </span>${todoText}</li>`);
+            }
+        });
+    </script>
+</body>
+
+</html>
